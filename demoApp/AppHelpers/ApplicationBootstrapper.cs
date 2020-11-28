@@ -4,11 +4,14 @@ using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using demoApp.Interfaces.Logger;
 using demoApp.Interfaces.PlatformServices;
+using demoApp.Interfaces.VMServices;
 using demoApp.Interfaces.WebService;
 using demoApp.Services.Logger;
 using demoApp.Services.PlatformServices;
+using demoApp.Services.VMServices;
 using demoApp.Services.WebService;
 using demoApp.ViewModels;
+using demoApp.Views;
 
 namespace demoApp.AppHelpers
 {
@@ -44,7 +47,7 @@ namespace demoApp.AppHelpers
         /// <param name="containerBuilder">containerBuilder is a parameter of ContainerBuilder used to build an IContainer from component registration</param>
         private static void RegisterViewModelServices(ContainerBuilder containerBuilder)
         {
-            // containerBuilder.RegisterType<TestPageService>().As<ITestPageService>().SingleInstance();
+            containerBuilder.RegisterType<LoginService>().As<ILoginService>().SingleInstance();
 
         }
 
@@ -55,7 +58,7 @@ namespace demoApp.AppHelpers
         private static void RegisterViewModels(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<BaseViewModel>().AsSelf().SingleInstance();
-
+            containerBuilder.RegisterType<LoginViewModel>().AsSelf().SingleInstance();
             RegisterViews(containerBuilder);
         }
 
@@ -67,7 +70,7 @@ namespace demoApp.AppHelpers
         {
             var container = containerBuilder.Build();
             var navigationService = container.Resolve<INavigationService>();
-            //navigationService.Configure(nameof(TestPageView), typeof(TestPageView));
+            navigationService.Configure(nameof(LoginView), typeof(LoginView));
 
             BuildServiceContainer(container);
         }

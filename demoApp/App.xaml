@@ -70,7 +70,6 @@
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="Padding" Value="10, 5" />
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontFamily" Value="{StaticResource Bold}" />
                 <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
             </Style>
 

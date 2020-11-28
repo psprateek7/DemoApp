@@ -70,7 +70,7 @@ namespace demoApp.Services.WebService
             {
                 throw new Exception(AppConstants.ErrorCodes.InternalServerError);
             }
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.BadRequest)
             {
                 switch (response.StatusCode)
                 {

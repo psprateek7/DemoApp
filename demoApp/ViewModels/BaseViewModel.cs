@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using demoApp.Interfaces.Logger;
 using demoApp.Interfaces.PlatformServices;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace demoApp.ViewModels
@@ -89,5 +90,28 @@ namespace demoApp.ViewModels
             IsProgressBarVisible = isVisible;
         }
 
+        protected bool IsNetworkAvailable()
+        {
+            var networkAccess = Connectivity.NetworkAccess;
+
+            if (networkAccess == NetworkAccess.None || networkAccess == NetworkAccess.Unknown)
+                return false;
+
+            return true;
+        }
+
+        public async Task<bool> CheckNetworkAndShowDialog()
+        {
+            var networkAccess = Connectivity.NetworkAccess;
+            if (networkAccess == NetworkAccess.None || networkAccess == NetworkAccess.Unknown)
+            {
+                await ShowDialog.ShowMessage("Please check your network connectivity!", "No Internet");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

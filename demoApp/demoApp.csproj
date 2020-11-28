@@ -34,5 +34,7 @@
     <Folder Include="Services\Logger\" />
     <Folder Include="Interfaces\Logger\" />
     <Folder Include="Interfaces\WebService\" />
+    <Folder Include="Models\RequestModels\" />
+    <Folder Include="Models\ResponseModels\" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using demoApp.Interfaces.Logger;
 
 namespace demoApp.Services.Logger
 {
-    public class LoggingService
+    public class LoggingService : ILoggingService
     {
         public void LogDebug(string message, [CallerMemberName] string caller = "", [CallerLineNumber] int lineNumber = 0)
         {
