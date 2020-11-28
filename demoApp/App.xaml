@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:demoApp.AppHelpers"
+             x:Class="demoApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--  Initialise the bootstrapping process  -->
+            <vm:ViewModelLocator x:Key="VMLocator"/>
+
+            <!--  Gray Colors  -->
+            <Color x:Key="White">#FFFFFF</Color>
+            <Color x:Key="Gray100">#F8F9FA</Color>
+            <Color x:Key="Gray200">#E9ECEF</Color>
+            <Color x:Key="Gray300">#DEE2E6</Color>
+            <Color x:Key="Gray400">#CED4DA</Color>
+            <Color x:Key="Gray500">#ADB5BD</Color>
+            <Color x:Key="Gray600">#D9D9D6</Color>
+            <Color x:Key="Gray700">#495057</Color>
+            <Color x:Key="Gray800">#343A40</Color>
+            <Color x:Key="Gray900">#212529</Color>
+            <Color x:Key="Black">#000000</Color>
+
+
+            <!--  Font Sizes  -->
+            <OnIdiom x:Key="FontSizeXXSmall"
+                                    x:TypeArguments="x:Double"
+                                    Tablet="16" Phone="10"/>
+
+            <OnIdiom x:Key="FontSizeXSmall"
+                                    x:TypeArguments="x:Double"
+                                    Tablet="18" Phone="12"/>
+
+
+            <OnIdiom x:Key="FontSizeSmall"
+                                    x:TypeArguments="x:Double"
+                                    Tablet="20" Phone="14"/>
+
+            <OnIdiom x:Key="FontSizeMedium"
+                                    x:TypeArguments="x:Double"
+                                    Tablet="22" Phone="16"/>
+
+            <OnIdiom x:Key="FontSizeLarge"
+                                    x:TypeArguments="x:Double"
+                                    Tablet="26" Phone="20"/>
+
+            <OnIdiom x:Key="FontSizeExtraLarge"
+                                    x:TypeArguments="x:Double"
+                                    Tablet="30" Phone="24"/>
+
+
+            <!--  Derived Colors  -->
+
+            <Color x:Key="BackgroundGray">#D9D9D6</Color>
+            <Color x:Key="TextPrimary">#3D3D3D</Color>
+            <Color x:Key="PrimaryGray">#6B6B6B</Color>
+            <Color x:Key="PrimaryRed">#bf1e2e</Color>
+            <Color x:Key="PrimaryGreen">#3AB972</Color>
+            <Color x:Key="SecondaryGray">#939393</Color>
+            <Color x:Key="SecondaryGreen">#22ab5f</Color>
+
+            <!--  ================================================================================  -->
+            <!--  Controls  -->
+            <!--  ================================================================================  -->
+
+            <!--  ButtonStyles  -->
+            <Style x:Key="ButtonBase" TargetType="Button">
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="Padding" Value="10, 5" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="{StaticResource Bold}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="ButtonPrimary"
+                      BasedOn="{StaticResource ButtonBase}"
+                      TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryGray}" />
+            </Style>
+
+            <!--  LabelStyles  -->
+            <Style x:Key="LabelTitleLarge" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <Style x:Key="LabelTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <Style x:Key="LabelTitleBold"
+                          BasedOn="{StaticResource LabelTitle}"
+                          TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <!--  EntryStyles  -->
+
+            <Style x:Key="EntryBase" TargetType="Entry">
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="PlaceholderColor"  Value="{StaticResource SecondaryGray}" />
+                <Setter Property="TextColor"  Value="{StaticResource TextPrimary}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <!--  Seperator  -->
+            <Style x:Key="Seperator" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+            </Style>
+
+            <!--  Frame  -->
+
+            <Style x:Key="FrameButton" TargetType="Frame">
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryRed}" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
