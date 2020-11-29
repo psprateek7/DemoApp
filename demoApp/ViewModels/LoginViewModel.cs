@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using demoApp.AppHelpers;
 using demoApp.Interfaces.Logger;
 using demoApp.Interfaces.PlatformServices;
 using demoApp.Interfaces.VMServices;
 using demoApp.Models.RequestModels;
 using demoApp.Models.ResponseModels;
 using demoApp.Utils;
+using demoApp.Views;
 using Xamarin.Forms;
 
 namespace demoApp.ViewModels
@@ -61,25 +63,32 @@ namespace demoApp.ViewModels
         {
             try
             {
-                IsProgressBarVisible = true;
-                if (await CheckNetworkAndShowDialog())
+                if (IsValidInput())
                 {
-                    var req = new LoginReqModel();
-                    req.UserName = UserName;
-                    req.Password = Password;
-
-                    LoginResponse response = await loginService.PerformLogin(AppConstants.EndPoints.Login, req);
-
-                    if (response != null && response.Errors == null)
+                    IsProgressBarVisible = true;
+                    if (await CheckNetworkAndShowDialog())
                     {
+                        var req = new LoginReqModel();
+                        req.UserName = UserName;
+                        req.Password = Password;
 
-                    }
-                    else
-                    {
+                        LoginResponse response = await loginService.PerformLogin(AppConstants.EndPoints.Login, req);
 
+                        if (response != null && response.Errors == null && response.TokenResult != null)
+                        {
+                            AppSession.UpdateSessionParam(AppConstants.SessionParams.Token, response.TokenResult.Token);
+                            await NavigationService.NavigateAsync(nameof(DashboardView));
+                        }
+                        else
+                        {
+                            await ShowDialog.ShowMessage("Please check your username/password and try again!", "Invalid Inputs");
+                        }
                     }
                 }
-
+                else
+                {
+                    await ShowDialog.ShowMessage("Please provide username/password and try again!", "Invalid Inputs");
+                }
             }
             catch (Exception ex)
             {
@@ -89,6 +98,11 @@ namespace demoApp.ViewModels
             {
                 IsProgressBarVisible = false;
             }
+        }
+
+        private bool IsValidInput()
+        {
+            return !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password);
         }
     }
 

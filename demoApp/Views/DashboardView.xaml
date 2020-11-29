@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseView  xmlns:views="clr-namespace:demoApp.Views"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="demoApp.Views.DashboardView"
+                 BackgroundColor="{x:StaticResource White}"
+                 Title="{Binding Title}"
+                 BindingContext="{Binding DashboardViewModel, Source={StaticResource VMLocator}}">
+    <views:BaseView.Content>
+
+        <StackLayout VerticalOptions="CenterAndExpand"
+              HorizontalOptions="FillAndExpand"
+              Spacing="30"
+              Padding="30">
+
+            <Button Command="{Binding ImportDataCommand}"
+                            Style="{x:StaticResource ButtonPrimary}"
+                            Text="Import Data"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+
+            <Button Command="{Binding NewUserCommand}"
+                            Style="{x:StaticResource ButtonPrimary}"
+                            Text="New User"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+
+            <Button Command="{Binding SavedUserCommand}"
+                            Style="{x:StaticResource ButtonPrimary}"
+                            Text="Saved User"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+
+            <Button Command="{Binding SyncDataCommand}"
+                            Style="{x:StaticResource ButtonPrimary}"
+                            Text="Sync Data"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+        </StackLayout>
+
+
+    </views:BaseView.Content>
+</views:BaseView>

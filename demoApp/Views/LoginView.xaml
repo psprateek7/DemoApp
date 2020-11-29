@@ -2,46 +2,42 @@
 <views:BaseView  xmlns:views="clr-namespace:demoApp.Views"
                  xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:controls="clr-namespace:demoApp.Controls"
+                 xmlns:controls="clr-namespace:demoApp.Controls" xmlns:behaviors="clr-namespace:demoApp.Utils.Behaviors"
                  x:Class="demoApp.Views.LoginView"
                  BackgroundColor="{x:StaticResource White}"
                  BindingContext="{Binding LoginViewModel, Source={StaticResource VMLocator}}"
                  NavigationPage.HasNavigationBar="False">
     <views:BaseView.Content>
-        <StackLayout VerticalOptions="CenterAndExpand"
+        <Grid>
+            <StackLayout VerticalOptions="CenterAndExpand"
               HorizontalOptions="FillAndExpand"
               Spacing="30"
               Padding="30">
 
-            <StackLayout VerticalOptions="FillAndExpand"
-                         HorizontalOptions="FillAndExpand"
-                         Spacing="5">
+                <controls:CustomEntryCtrl Placeholder="Username"
+                                        Text="{Binding UserName}">
+                    <controls:CustomEntryCtrl.Behaviors>
+                        <behaviors:EntryTextValidator />
+                    </controls:CustomEntryCtrl.Behaviors>
+                </controls:CustomEntryCtrl>
 
-                <controls:BorderlessEntry
-                         Placeholder="Username"
-                         Text="{Binding UserName, Mode=TwoWay}"/>
+                <controls:CustomEntryCtrl Placeholder="Password"
+                                        Text="{Binding Password}">
+                    <controls:CustomEntryCtrl.Behaviors>
+                        <behaviors:EntryTextValidator />
+                    </controls:CustomEntryCtrl.Behaviors>
+                </controls:CustomEntryCtrl>
 
-                <BoxView Style="{x:StaticResource Seperator}"/>
-            </StackLayout>
-
-            <StackLayout VerticalOptions="FillAndExpand"
-                         HorizontalOptions="FillAndExpand"
-                          Spacing="5">
-
-                <controls:BorderlessEntry
-                         Placeholder="Password"
-                        Text="{Binding Password}" />
-
-                <BoxView Style="{x:StaticResource Seperator}"/>
-
-            </StackLayout>
-
-            <Button Command="{Binding LoginCommand}"
+                <Button Command="{Binding LoginCommand}"
                             Style="{x:StaticResource ButtonPrimary}"
                             Text="Login"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="Center"/>
-        </StackLayout>
 
+
+            </StackLayout>
+            <controls:AppLoader IsRunning="{Binding IsProgressBarVisible}" VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"/>
+        </Grid>
     </views:BaseView.Content>
 </views:BaseView>

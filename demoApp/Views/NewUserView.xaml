@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseView  xmlns:views="clr-namespace:demoApp.Views"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:controls="clr-namespace:demoApp.Controls" xmlns:behaviors="clr-namespace:demoApp.Utils.Behaviors"
+                 x:Class="demoApp.Views.NewUserView"
+                 BackgroundColor="{x:StaticResource White}"
+                 BindingContext="{Binding NewUserViewModel, Source={StaticResource VMLocator}}"
+                 Title="{Binding Title}">
+    <views:BaseView.Content>
+        <Grid>
+            <ScrollView VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand">
+
+                <StackLayout VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          Spacing="30"
+                          Padding="40">
+
+                    <controls:CustomEntryCtrl Placeholder="First Name"
+                                        Text="{Binding FirstName}">
+                        <controls:CustomEntryCtrl.Behaviors>
+                            <behaviors:EntryTextValidator />
+                        </controls:CustomEntryCtrl.Behaviors>
+                    </controls:CustomEntryCtrl>
+
+                    <controls:CustomEntryCtrl Placeholder="Last Name"
+                                        Text="{Binding LastName}"/>
+
+                    <controls:CustomEntryCtrl Placeholder="Phone"
+                                        Text="{Binding PhoneNumber}">
+                        <controls:CustomEntryCtrl.Behaviors>
+                            <behaviors:EntryTextValidator />
+                        </controls:CustomEntryCtrl.Behaviors>
+                    </controls:CustomEntryCtrl>
+
+
+                    <controls:CustomEntryCtrl Placeholder="Email"
+                                        Text="{Binding Email}">
+                        <controls:CustomEntryCtrl.Behaviors>
+                            <behaviors:EntryTextValidator />
+                        </controls:CustomEntryCtrl.Behaviors>
+                    </controls:CustomEntryCtrl>
+
+
+                    <controls:CustomEntryCtrl Placeholder="Address"
+                                        Text="{Binding Address}"/>
+
+
+                    <controls:CustomEntryCtrl Placeholder="Age"
+                                        Text="{Binding Age}"/>
+
+
+                    <Button Command="{Binding SubmitCommand}"
+                            Style="{x:StaticResource ButtonPrimary}"
+                            Text="Add new user"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"/>
+                </StackLayout>
+
+            </ScrollView>
+            <controls:AppLoader IsRunning="{Binding IsProgressBarVisible}" VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"/>
+        </Grid>
+    </views:BaseView.Content>
+</views:BaseView>

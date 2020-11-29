@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using demoApp.Interfaces.Logger;
 using demoApp.Interfaces.PlatformServices;
+using demoApp.Utils;
+using Plugin.Connectivity;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -14,6 +16,22 @@ namespace demoApp.ViewModels
         protected ILoggingService Logger { get; private set; }
 
         #region UI Functions
+        private bool isConnected;
+        /// <summary>
+        /// Bind this to the Progress bar in UI and manage the visibilty.
+        /// </summary>
+        public bool IsConnected
+        {
+            set
+            {
+                isConnected = value;
+                OnPropertyChanged(nameof(IsConnected));
+            }
+            get
+            {
+                return isConnected;
+            }
+        }
 
         private bool isProgressBarVisible;
         /// <summary>
@@ -55,6 +73,7 @@ namespace demoApp.ViewModels
             NavigationService = navigationService;
             ShowDialog = dialogService;
             Logger = loggingService;
+            // SubscribeToNetworkChange();
         }
 
         /// <summary>
@@ -73,6 +92,7 @@ namespace demoApp.ViewModels
         /// </summary>
         public virtual bool OnAppearing()
         {
+            SubscribeToNetworkChange();
             return false;
         }
 
@@ -82,7 +102,16 @@ namespace demoApp.ViewModels
         /// </summary>
         public virtual bool OnDisappearing()
         {
+            UnsubscribeFromNetworkChange();
             return false;
+        }
+
+        /// <summary>
+        /// override this to handle network change
+        /// </summary>
+        protected virtual void RefreshOnNetworkChange()
+        {
+
         }
 
         protected void ShowProgress(bool isVisible)
@@ -90,20 +119,26 @@ namespace demoApp.ViewModels
             IsProgressBarVisible = isVisible;
         }
 
+        #region NetworkChecks
+        protected void SetConnectivityConst()
+        {
+            IsConnected = IsNetworkAvailable();
+        }
+
         protected bool IsNetworkAvailable()
         {
-            var networkAccess = Connectivity.NetworkAccess;
+            bool isAvailable = CrossConnectivity.Current.IsConnected;
 
-            if (networkAccess == NetworkAccess.None || networkAccess == NetworkAccess.Unknown)
+            if (!isAvailable)
                 return false;
 
             return true;
         }
 
-        public async Task<bool> CheckNetworkAndShowDialog()
+        protected async Task<bool> CheckNetworkAndShowDialog()
         {
-            var networkAccess = Connectivity.NetworkAccess;
-            if (networkAccess == NetworkAccess.None || networkAccess == NetworkAccess.Unknown)
+
+            if (!IsNetworkAvailable())
             {
                 await ShowDialog.ShowMessage("Please check your network connectivity!", "No Internet");
                 return false;
@@ -113,5 +148,40 @@ namespace demoApp.ViewModels
                 return true;
             }
         }
+
+        private void SubscribeToNetworkChange()
+        {
+            MessagingCenter.Subscribe(this, AppConstants.MessagingCenterConsts.NetworkChanged, (object arg1) => { HandleNetworkChange(arg1); });
+        }
+
+
+        private void UnsubscribeFromNetworkChange()
+        {
+            MessagingCenter.Unsubscribe<App>(this, AppConstants.MessagingCenterConsts.NetworkChanged);
+        }
+
+        private async Task HandleNetworkChange(object sender)
+        {
+            try
+            {
+                if (sender != null)
+                {
+                    if (IsNetworkAvailable())
+                    {
+                        await ShowDialog.ShowCustomPopUp("You now have internet access!");
+                        RefreshOnNetworkChange();
+                    }
+                    else
+                    {
+                        await ShowDialog.ShowCustomPopUp("You have lost internet access. You are now in in Offline Mode!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogDebug("Refresh failed on network change with ex - " + ex.Message);
+            }
+        }
+        #endregion
     }
 }

@@ -10,6 +10,11 @@ namespace demoApp.Utils
             public const string InternalServerError = "Unable to contact server.";
         }
 
+        public static class SessionParams
+        {
+            public const string Token = "Token";
+        }
+
         public static class EndPoints
         {
 
@@ -21,6 +26,17 @@ namespace demoApp.Utils
 #endif
 
             public static readonly string Login = $"{EndPoints.HostUri}/account/token";
+
+            public static readonly string AddUser = $"{EndPoints.HostUri}/user/add";
         }
+
+        public static class MessagingCenterConsts
+        {
+
+            public const string NetworkChanged = "NetworkChanged";
+        }
+
+
+
     }
 }

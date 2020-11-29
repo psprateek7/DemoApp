@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using demoApp.Interfaces.PlatformServices;
 using Xamarin.Forms;
@@ -11,6 +12,15 @@ namespace demoApp.Services.PlatformServices
         private readonly object _sync = new object();
         private readonly Dictionary<string, Type> _pagesByKey = new Dictionary<string, Type>();
         private NavigationPage CurrentNavigationPage { get; set; }
+
+
+        public Page SetRootPage(string rootPageKey)
+        {
+            var rootPage = GetPage(rootPageKey);
+            CurrentNavigationPage = new NavigationPage(rootPage);
+            return CurrentNavigationPage;
+        }
+
 
         public void Configure(string pageKey, Type pageType)
         {
@@ -29,11 +39,6 @@ namespace demoApp.Services.PlatformServices
 
         public async Task GoBack()
         {
-            if (CurrentNavigationPage.Navigation.ModalStack.Count > 0)
-            {
-                await CurrentNavigationPage.Navigation.PopModalAsync();
-                return;
-            }
 
             if (CurrentNavigationPage.Navigation.NavigationStack.Count > 0)
                 await CurrentNavigationPage.Navigation.PopAsync();

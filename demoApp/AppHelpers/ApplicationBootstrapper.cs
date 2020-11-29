@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
+using demoApp.DBHelper;
 using demoApp.Interfaces.Logger;
 using demoApp.Interfaces.PlatformServices;
 using demoApp.Interfaces.VMServices;
@@ -36,6 +37,7 @@ namespace demoApp.AppHelpers
             containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             containerBuilder.RegisterType<WebServiceClient>().As<IWebServiceClient>().SingleInstance();
             containerBuilder.RegisterType<LoggingService>().As<ILoggingService>().SingleInstance();
+            containerBuilder.RegisterType<SqliteHelper>().As<ISqliteHelper>().SingleInstance();
             RegisterViewModelServices(containerBuilder);
             RegisterViewModels(containerBuilder);
 
@@ -48,6 +50,8 @@ namespace demoApp.AppHelpers
         private static void RegisterViewModelServices(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<LoginService>().As<ILoginService>().SingleInstance();
+            containerBuilder.RegisterType<NewUserService>().As<INewUserService>().SingleInstance();
+            containerBuilder.RegisterType<SavedUserService>().As<ISavedUserService>().SingleInstance();
 
         }
 
@@ -59,6 +63,9 @@ namespace demoApp.AppHelpers
         {
             containerBuilder.RegisterType<BaseViewModel>().AsSelf().SingleInstance();
             containerBuilder.RegisterType<LoginViewModel>().AsSelf().SingleInstance();
+            containerBuilder.RegisterType<DashboardViewModel>().AsSelf().SingleInstance();
+            containerBuilder.RegisterType<NewUserViewModel>().AsSelf().SingleInstance();
+            containerBuilder.RegisterType<SavedUserViewModel>().AsSelf().SingleInstance();
             RegisterViews(containerBuilder);
         }
 
@@ -71,6 +78,11 @@ namespace demoApp.AppHelpers
             var container = containerBuilder.Build();
             var navigationService = container.Resolve<INavigationService>();
             navigationService.Configure(nameof(LoginView), typeof(LoginView));
+            navigationService.Configure(nameof(DashboardView), typeof(DashboardView));
+            navigationService.Configure(nameof(NewUserView), typeof(NewUserView));
+            navigationService.Configure(nameof(SavedUserView), typeof(SavedUserView));
+
+
 
             BuildServiceContainer(container);
         }

@@ -7,18 +7,17 @@ using demoApp.Models.ResponseModels;
 
 namespace demoApp.Services.VMServices
 {
-    public class LoginService : ILoginService
+    public class LoginService : BaseService, ILoginService
     {
-        private IWebServiceClient webServiceClient { get; set; }
 
-        public LoginService(IWebServiceClient _webServiceClient)
+
+        public LoginService(IWebServiceClient _webServiceClient) : base(_webServiceClient)
         {
-            webServiceClient = _webServiceClient;
         }
 
         public async Task<LoginResponse> PerformLogin(string uri, LoginReqModel requestModel)
         {
-            return await webServiceClient.PostAsync<LoginResponse, LoginReqModel>(uri, requestModel);
+            return await webServiceClient.PostAsync<LoginResponse, LoginReqModel>(uri, requestModel, false);
         }
     }
 }

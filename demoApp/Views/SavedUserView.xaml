@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseView  xmlns:views="clr-namespace:demoApp.Views"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:controls="clr-namespace:demoApp.Controls"
+                 x:Class="demoApp.Views.SavedUserView"
+                 BackgroundColor="{x:StaticResource White}"
+                 BindingContext="{Binding SavedUserViewModel, Source={StaticResource VMLocator}}"
+                 Title="{Binding Title}">
+    <views:BaseView.Content>
+        <Grid VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                      Grid.Row="0"
+                      ItemTapped="ListView_ItemTapped"
+                        ItemsSource="{Binding UnsyncedUsers}"
+                        SeparatorVisibility="None"
+                        HasUnevenRows="True">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:SavedUserViewCell/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.FooterTemplate>
+                    <DataTemplate>
+                        <Frame IsVisible="{Binding IsError}"
+                                 Style="{x:StaticResource FrameButton}" BackgroundColor="{x:StaticResource Gray200}">
+                            <Label Text="One or more records could not be transferred. Please  and try again!"
+                                       Style="{x:StaticResource LabelTitle}"
+                                       TextColor="{x:StaticResource PrimaryRed}"></Label>
+                            <Frame.CornerRadius>
+                                <OnPlatform x:TypeArguments="x:Single">
+                                    <On Platform="iOS" Value="15"/>
+                                    <On Platform="Android" Value="20"/>
+                                </OnPlatform>
+                            </Frame.CornerRadius>
+                        </Frame>
+                    </DataTemplate>
+                </ListView.FooterTemplate>
+            </ListView>
+
+            <Button Command="{Binding LoginCommand}"
+                    Grid.Row="1"
+                            Style="{x:StaticResource ButtonPrimary}"
+                            Text="Sync"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="EndAndExpand"/>
+        </Grid>
+    </views:BaseView.Content>
+</views:BaseView>

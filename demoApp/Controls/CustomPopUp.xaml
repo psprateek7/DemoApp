@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<popup:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="demoApp.Controls.CustomPopUp"
+             >
+    <popup:PopupPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="0" Margin="0,0,0,20"
+                     BackgroundColor="Transparent">
+            <Frame CornerRadius="20" HasShadow="False" IsClippedToBounds="True" BackgroundColor="White" Margin="10,10,10,20">
+                <StackLayout BackgroundColor="White" Orientation="Horizontal">
+                    <Label x:Name="txtLabel" TextColor="{x:StaticResource TextPrimary}" FontSize="16" 
+                       />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </popup:PopupPage.Content>
+</popup:PopupPage>

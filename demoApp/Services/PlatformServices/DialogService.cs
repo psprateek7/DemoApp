@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using demoApp.Controls;
 using demoApp.Interfaces.PlatformServices;
+using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace demoApp.Services.PlatformServices
@@ -24,6 +29,17 @@ namespace demoApp.Services.PlatformServices
                 taskcompletionservice.SetResult(result);
             });
             return taskcompletionservice.Task;
+        }
+
+
+        public async Task ShowCustomPopUp(string text)
+        {
+            Vibration.Vibrate();
+            var popUp = new CustomPopUp(text);
+            await PopupNavigation.Instance.PushAsync(popUp);
+            Thread.Sleep(500);
+            await PopupNavigation.Instance.PopAsync();
+
         }
     }
 }

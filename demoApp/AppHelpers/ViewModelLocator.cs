@@ -24,5 +24,38 @@ namespace demoApp.AppHelpers
                 return ServiceLocator.Current.GetInstance<LoginViewModel>();
             }
         }
+
+        /// <summary>
+        /// Get DashboardViewModel
+        /// </summary>
+        public DashboardViewModel DashboardViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DashboardViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Get NewUserViewModel
+        /// </summary>
+        public NewUserViewModel NewUserViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<NewUserViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Get SavedUserViewModel
+        /// </summary>
+        public SavedUserViewModel SavedUserViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SavedUserViewModel>();
+            }
+        }
     }
 }

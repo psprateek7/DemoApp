@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="demoApp.Controls.SavedUserViewCell">
+    <ContentView.Content>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <CheckBox 
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                    IsChecked="{Binding IsSelected}"
+                Grid.Column="0">
+                <!--<Frame.Triggers>
+                    <DataTrigger TargetType="BoxView"
+                                             Binding="{Binding IsSelected}"
+                                             Value="true">
+                        <Setter Property="BackgroundColor" Value="{x:StaticResource PrimaryRed}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="BoxView"
+                                             Binding="{Binding IsSelected}"
+                                             Value="true">
+                        <Setter Property="BackgroundColor" Value="{x:StaticResource PrimaryRed}"/>
+                    </DataTrigger>
+
+                </Frame.Triggers>-->
+            </CheckBox>
+
+            <Frame HasShadow="False" Grid.Column="1"
+               BackgroundColor="{x:StaticResource Gray200}">
+
+                <StackLayout Padding="10">
+                    <Label Text="{Binding FirstName}"
+                         Style="{x:StaticResource LabelTitleBold}"
+                         TextColor="{x:StaticResource Gray800}"
+                         LineBreakMode="MiddleTruncation"
+                         VerticalOptions="Center"
+                        HorizontalOptions="Start"/>
+
+                    <Label Text="{Binding Email}"
+                         Style="{x:StaticResource LabelTitle}"
+                         TextColor="{x:StaticResource Gray800}"
+                         LineBreakMode="MiddleTruncation"
+                         VerticalOptions="Center"
+                        HorizontalOptions="Start"/>
+
+                    <Label Text="{Binding Address}"
+                         Style="{x:StaticResource LabelTitle}"
+                         TextColor="{x:StaticResource Gray800}"
+                         LineBreakMode="MiddleTruncation"
+                         VerticalOptions="Center"
+                        HorizontalOptions="Start"/>
+
+                    <Grid  VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".9*"/>
+                            <ColumnDefinition Width=".1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label 
+                         Style="{x:StaticResource LabelTitle}"
+                         TextColor="{x:StaticResource Gray800}"
+                         LineBreakMode="MiddleTruncation"
+                         VerticalOptions="Center"
+                        HorizontalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Ph :" TextColor="{x:StaticResource TextPrimary}"/>
+                                    <Span Text=" "/>
+                                    <Span Text="{Binding PhoneNumber}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label 
+                         Style="{x:StaticResource LabelTitle}"
+                         TextColor="{x:StaticResource Gray800}"
+                         LineBreakMode="MiddleTruncation"
+                         VerticalOptions="Center"
+                        HorizontalOptions="End">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Age :" TextColor="{x:StaticResource TextPrimary}"/>
+                                    <Span Text=" "/>
+                                    <Span Text="{Binding Age}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+
+                <Frame.CornerRadius>
+                    <OnPlatform x:TypeArguments="x:Single">
+                        <On Platform="iOS" Value="15"/>
+                        <On Platform="Android" Value="20"/>
+                    </OnPlatform>
+                </Frame.CornerRadius>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

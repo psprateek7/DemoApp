@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using demoApp.AppHelpers;
 using demoApp.Interfaces.WebService;
 using demoApp.Utils;
 using Newtonsoft.Json;
@@ -12,21 +13,27 @@ namespace demoApp.Services.WebService
     public class WebServiceClient : IWebServiceClient
     {
         public HttpClient client { get; set; }
-        private void InitDefaultHeaders(HttpClient httpClient)
+        private void InitDefaultHeaders(HttpClient httpClient, bool isTokenRequired)
         {
             string content_type = "application/json";
             httpClient.DefaultRequestHeaders.Add("Accept", content_type);
+
+            if (isTokenRequired)
+            {
+                var token = AppSession.GetSessionParam(AppConstants.SessionParams.Token);
+                httpClient.DefaultRequestHeaders.Add("BearerToken", token);
+            }
         }
 
 
-        public async Task<T> GetAsync<T>(string uri)
+        public async Task<T> GetAsync<T>(string uri, bool isTokenRequired = true)
         {
             string response = string.Empty;
             var httpResponse = new HttpResponseMessage();
 
             using (HttpClient client = SetHttpClientObject())
             {
-                InitDefaultHeaders(client);
+                InitDefaultHeaders(client, isTokenRequired);
                 httpResponse = await client.GetAsync(uri);
                 ValidateResponseStatus(httpResponse);
                 response = await httpResponse.Content.ReadAsStringAsync();
@@ -42,7 +49,7 @@ namespace demoApp.Services.WebService
             return client;
         }
 
-        public async Task<T> PostAsync<T, U>(string uri, U _requestContent)
+        public async Task<T> PostAsync<T, U>(string uri, U _requestContent, bool isTokenRequired = true)
         {
             string response = string.Empty;
             var httpResponse = new HttpResponseMessage();
@@ -50,7 +57,7 @@ namespace demoApp.Services.WebService
             using (HttpClient client = new HttpClient())
             {
                 var reqJson = JsonConvert.SerializeObject(_requestContent);
-                InitDefaultHeaders(client);
+                InitDefaultHeaders(client, isTokenRequired);
                 var content = new StringContent(reqJson, Encoding.UTF8, "application/json");
                 httpResponse = await client.PostAsync(uri, content);
                 ValidateResponseStatus(httpResponse);

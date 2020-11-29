@@ -1,7 +1,8 @@
-﻿using System;
-using demoApp.Views;
+﻿using CommonServiceLocator;
+using demoApp.Interfaces.PlatformServices;
+using demoApp.Utils;
+using Plugin.Connectivity;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace demoApp
 {
@@ -10,12 +11,22 @@ namespace demoApp
         public App()
         {
             InitializeComponent();
+            SubscribeToNetworkChange();
+            var mainPage = ServiceLocator.Current.GetInstance<INavigationService>().SetRootPage("LoginView");
 
-            MainPage = new NavigationPage(new LoginView());
+            MainPage = mainPage;
         }
 
+        private void SubscribeToNetworkChange()
+        {
+            CrossConnectivity.Current.ConnectivityChanged += (sender, args) =>
+            {
+                MessagingCenter.Send<object>(this, AppConstants.MessagingCenterConsts.NetworkChanged);
+            };
+        }
         protected override void OnStart()
         {
+
         }
 
         protected override void OnSleep()

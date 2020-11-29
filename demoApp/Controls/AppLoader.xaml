@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="demoApp.Controls.AppLoader"
+             BackgroundColor="Black"
+              x:Name="self"
+              IsVisible="{Binding IsRunning, Source={x:Reference self}}"
+              Opacity="0.6"
+            >
+    <ContentView.Content>
+        <Grid>
+            <StackLayout VerticalOptions="CenterAndExpand"
+                          HorizontalOptions="CenterAndExpand"
+                          Orientation="Vertical"
+                          Spacing="20">
+
+                <Label Text="{Binding Title, Source={x:Reference self}}" 
+                       TextColor="White"
+                       Style="{x:StaticResource LabelTitle}"
+                       VerticalTextAlignment="Center"/>
+
+
+                <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                           Color="White"
+                           IsRunning="{Binding IsRunning, Source={x:Reference self}}" 
+                           IsVisible="{Binding IsRunning, Source={x:Reference self}}"></ActivityIndicator>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

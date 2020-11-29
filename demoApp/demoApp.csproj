@@ -16,6 +16,8 @@
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
@@ -36,5 +38,10 @@
     <Folder Include="Interfaces\WebService\" />
     <Folder Include="Models\RequestModels\" />
     <Folder Include="Models\ResponseModels\" />
+    <Folder Include="Models\DataModels\" />
+    <Folder Include="Utils\Behaviors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\demoApp.DBHelper\demoApp.DBHelper.csproj" />
   </ItemGroup>
 </Project>

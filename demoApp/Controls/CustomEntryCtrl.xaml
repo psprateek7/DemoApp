@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:demoApp.Controls"
+             x:Class="demoApp.Controls.CustomEntryCtrl"
+             x:Name="self">
+    <ContentView.Content>
+        <StackLayout VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                          Spacing="5">
+
+            <controls:BorderlessEntry
+                         Placeholder="{Binding Source={x:Reference self}, Path=Placeholder}"
+                        Text="{Binding Source={x:Reference self}, Path=Text}" />
+
+            <BoxView Style="{x:StaticResource Seperator}"/>
+
+            <Label Style="{x:StaticResource LabelError}"
+                   Text="{Binding Source={x:Reference self}, Path=Error}"
+                   IsVisible="{Binding Source={x:Reference self}, Path=HasError}"
+                         LineBreakMode="MiddleTruncation"
+                         VerticalOptions="Start"
+                        HorizontalOptions="Start"/>
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

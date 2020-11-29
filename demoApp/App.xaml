@@ -56,9 +56,7 @@
             <Color x:Key="TextPrimary">#3D3D3D</Color>
             <Color x:Key="PrimaryGray">#6B6B6B</Color>
             <Color x:Key="PrimaryRed">#bf1e2e</Color>
-            <Color x:Key="PrimaryGreen">#3AB972</Color>
             <Color x:Key="SecondaryGray">#939393</Color>
-            <Color x:Key="SecondaryGreen">#22ab5f</Color>
 
             <!--  ================================================================================  -->
             <!--  Controls  -->
@@ -88,6 +86,11 @@
             <Style x:Key="LabelTitle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
                 <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+            </Style>
+
+            <Style x:Key="LabelError" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryRed}" />
             </Style>
 
             <Style x:Key="LabelTitleBold"

@@ -40,5 +40,7 @@ namespace demoApp.Interfaces.PlatformServices
         /// <param name="animated">(boolean)set value to show animation</param>
         /// <returns></returns>
         Task NavigateAsync(string pageKey, object[] parameter, bool animated = true);
+
+        Page SetRootPage(string rootPageKey);
     }
 }

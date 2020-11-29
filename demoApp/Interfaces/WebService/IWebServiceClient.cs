@@ -11,7 +11,7 @@ namespace demoApp.Interfaces.WebService
         /// <typeparam name="T">returns the type "T" deserialised response</typeparam>
         /// <param name="uri">URI to process</param>
         /// <returns>returns the object</returns>
-        Task<T> GetAsync<T>(string uri);
+        Task<T> GetAsync<T>(string uri, bool isTokenRequired = true);
 
         /// <summary>
         ///  Use this to process HTTP POST verb.
@@ -21,6 +21,6 @@ namespace demoApp.Interfaces.WebService
         /// <param name="uri">URI to process</param>
         /// <param name="requestContent">request model</param>
         /// <returns>Returns deserialised type T response</returns>
-        Task<T> PostAsync<T, U>(string uri, U requestContent);
+        Task<T> PostAsync<T, U>(string uri, U requestContent, bool isTokenRequired = true);
     }
 }
