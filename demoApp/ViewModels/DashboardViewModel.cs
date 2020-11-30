@@ -45,7 +45,7 @@ namespace demoApp.ViewModels
             NewUserCommand = new Command(ExecuteNewUser);
             SavedUserCommand = new Command(ExecuteSavedUser);
             SyncDataCommand = new Command(async () => await ExecuteSyncData());
-            LogOutCommand = new Command(LogOut);
+            LogOutCommand = new Command(async () => await LogOut());
         }
         #region overrides
         public override bool OnAppearing()
@@ -64,10 +64,13 @@ namespace demoApp.ViewModels
         {
 
         }
-        private void LogOut()
+        private async Task LogOut()
         {
-            Application.Current.MainPage = NavigationService.SetRootPage(nameof(LoginView));
+            if (await CheckNetworkAndShowDialog())
+            {
 
+                Application.Current.MainPage = NavigationService.SetRootPage(nameof(LoginView));
+            }
         }
         private void ExecuteNewUser()
         {

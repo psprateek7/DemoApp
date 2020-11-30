@@ -170,13 +170,14 @@ namespace demoApp.ViewModels
                     {
 
                         await ShowDialog.ShowCustomPopUp("You now have internet access!");
-                        RefreshOnNetworkChange();
+
                     }
                     else
                     {
 
                         await ShowDialog.ShowCustomPopUp("You have lost internet access. You are now in in Offline Mode!");
                     }
+                    RefreshOnNetworkChange();
                 }
             }
             catch (Exception ex)

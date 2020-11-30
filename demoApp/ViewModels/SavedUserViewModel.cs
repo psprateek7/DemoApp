@@ -87,7 +87,7 @@ namespace demoApp.ViewModels
             {
                 bool success = true;
                 ShowProgress(true);
-                if (IsNetworkAvailable())
+                if (await CheckNetworkAndShowDialog())
                 {
                     var selectedUser = GetSelectedUser();
                     if (selectedUser == null || (selectedUser != null && selectedUser.Count <= 0))

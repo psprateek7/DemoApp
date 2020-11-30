@@ -25,7 +25,7 @@
                 <Button Command="{Binding ImportDataCommand}"
                                 Style="{x:StaticResource ButtonPrimary}"
                                 Text="Import Data"
-                        IsVisible="{Binding IsConnected}"
+                                IsVisible="{Binding IsConnected,Mode=TwoWay}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Center"/>
 
@@ -42,7 +42,7 @@
                                 VerticalOptions="Center"/>
 
                 <Button Command="{Binding SyncDataCommand}"
-                         IsVisible="{Binding IsConnected}"
+                         IsVisible="{Binding IsConnected,Mode=TwoWay}"
                                 Style="{x:StaticResource ButtonPrimary}"
                                 Text="Sync Data"
                                 HorizontalOptions="FillAndExpand"
@@ -51,7 +51,7 @@
                 <Button Command="{Binding LogOutCommand}"
                                 Style="{x:StaticResource ButtonPrimary}"
                                 Text="LogOut"
-                        IsVisible="{Binding IsConnected}"
+                        IsVisible="{Binding IsConnected,Mode=TwoWay}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Center"/>
             </StackLayout>
