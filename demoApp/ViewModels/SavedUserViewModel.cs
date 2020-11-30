@@ -63,8 +63,11 @@ namespace demoApp.ViewModels
                                                                                                                                                                             _loggingService)
 
         {
+            Title = "Saved Users";
+            UnsyncedUsers = new ObservableCollection<UserDataModel>();
             SyncCommand = new Command(async () => await ExecuteSyncCommand());
             savedUserService = _savedUserService;
+
         }
 
         public override bool OnAppearing()
@@ -87,27 +90,44 @@ namespace demoApp.ViewModels
                 if (IsNetworkAvailable())
                 {
                     var selectedUser = GetSelectedUser();
-                    foreach (var user in selectedUser)
+                    if (selectedUser == null || (selectedUser != null && selectedUser.Count <= 0))
                     {
-                        var req = CreateNewUserRequest(user);
-                        GenericResponse response = await savedUserService.SubmitUserDetails(AppConstants.EndPoints.AddUser, req);
+                        await ShowDialog.ShowMessage("Please select atleast one entry to sync!", "Saved User");
+                    }
+                    else
+                    {
+                        foreach (var user in selectedUser)
+                        {
+                            var req = CreateNewUserRequest(user);
+                            GenericResponse response = await savedUserService.SubmitUserDetails(AppConstants.EndPoints.AddUser, req);
 
-                        if (response == null)
-                        {
-                            success = false;
-                        }
-                        else if (response != null && response.Success == false)
-                        {
-                            success = false;
-                        }
-                        else
-                        {
-                            var userToDelete = listOfSavedUser.Where(x => x.ID == user.ID).FirstOrDefault();
-                            if (userToDelete != null)
+                            if (response == null)
                             {
-                                await savedUserService.DeleteItemIfSynced(userToDelete);
+                                success = false;
                             }
+                            else if (response != null && response.Success == false)
+                            {
+                                success = false;
+                            }
+                            else
+                            {
+                                var userToDelete = listOfSavedUser.Where(x => x.ID == user.ID).FirstOrDefault();
+                                if (userToDelete != null)
+                                {
+                                    var result = await savedUserService.DeleteItemIfSynced(userToDelete);
+                                    if (result)
+                                    {
+                                        Device.BeginInvokeOnMainThread(() =>
+                                        {
+                                            UnsyncedUsers.Remove(user);
+                                        });
+
+                                    }
+                                }
+                            }
+
                         }
+                        HandleSyncResult(false);
                     }
                 }
             }
@@ -143,7 +163,10 @@ namespace demoApp.ViewModels
                             unsyncedUser.LastName = user.LastName;
                             unsyncedUser.PhoneNumber = user.PhoneNumber;
 
-                            UnsyncedUsers.Add(unsyncedUser);
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                UnsyncedUsers.Add(unsyncedUser);
+                            });
                         }
                     }
                     else
@@ -165,6 +188,14 @@ namespace demoApp.ViewModels
             if (!isSuccess)
             {
                 IsError = true;
+            }
+            else if (UnsyncedUsers != null && UnsyncedUsers.Count <= 0)
+            {
+                ShowDialog.ShowMessage("All Records synced successfully!", "Saved Users");
+            }
+            else
+            {
+                ShowDialog.ShowMessage("Selected users synced successfully!", "Saved Users");
             }
 
         }

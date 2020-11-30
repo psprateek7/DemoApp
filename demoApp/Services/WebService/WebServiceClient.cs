@@ -21,7 +21,7 @@ namespace demoApp.Services.WebService
             if (isTokenRequired)
             {
                 var token = AppSession.GetSessionParam(AppConstants.SessionParams.Token);
-                httpClient.DefaultRequestHeaders.Add("BearerToken", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             }
         }
 

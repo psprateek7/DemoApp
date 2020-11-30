@@ -22,7 +22,8 @@
                 </controls:CustomEntryCtrl>
 
                 <controls:CustomEntryCtrl Placeholder="Password"
-                                        Text="{Binding Password}">
+                                        Text="{Binding Password}"
+                                          IsPassword="True">
                     <controls:CustomEntryCtrl.Behaviors>
                         <behaviors:EntryTextValidator />
                     </controls:CustomEntryCtrl.Behaviors>

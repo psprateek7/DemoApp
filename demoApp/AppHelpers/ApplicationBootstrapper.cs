@@ -52,6 +52,7 @@ namespace demoApp.AppHelpers
             containerBuilder.RegisterType<LoginService>().As<ILoginService>().SingleInstance();
             containerBuilder.RegisterType<NewUserService>().As<INewUserService>().SingleInstance();
             containerBuilder.RegisterType<SavedUserService>().As<ISavedUserService>().SingleInstance();
+            containerBuilder.RegisterType<DashboardService>().As<IDashboardService>().SingleInstance();
 
         }
 

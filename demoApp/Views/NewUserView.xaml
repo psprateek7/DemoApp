@@ -28,6 +28,8 @@
                                         Text="{Binding LastName}"/>
 
                     <controls:CustomEntryCtrl Placeholder="Phone"
+                                              Keyboard="Numeric"
+                                              MaxLength="10"
                                         Text="{Binding PhoneNumber}">
                         <controls:CustomEntryCtrl.Behaviors>
                             <behaviors:EntryTextValidator />
@@ -48,6 +50,7 @@
 
 
                     <controls:CustomEntryCtrl Placeholder="Age"
+                                              Keyboard="Telephone"
                                         Text="{Binding Age}"/>
 
 

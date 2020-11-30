@@ -28,6 +28,8 @@ namespace demoApp.Utils
             public static readonly string Login = $"{EndPoints.HostUri}/account/token";
 
             public static readonly string AddUser = $"{EndPoints.HostUri}/user/add";
+
+            public static readonly string GetUsers = $"{EndPoints.HostUri}/user";
         }
 
         public static class MessagingCenterConsts

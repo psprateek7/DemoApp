@@ -119,7 +119,7 @@
             <!--  Frame  -->
 
             <Style x:Key="FrameButton" TargetType="Frame">
-                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="60" />
                 <Setter Property="BackgroundColor" Value="{StaticResource PrimaryRed}" />
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="Padding" Value="0" />

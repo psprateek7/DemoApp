@@ -7,7 +7,7 @@ namespace demoApp.Views
 {
     public partial class DashboardView : BaseView
     {
-        public DashboardView()
+        public DashboardView() : base(false)
         {
             InitializeComponent();
         }

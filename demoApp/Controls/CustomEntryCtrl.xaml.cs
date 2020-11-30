@@ -60,6 +60,45 @@ namespace demoApp.Controls
             }
         }
 
+        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(nameof(IsPassword), returnType: typeof(bool), declaringType: typeof(bool), defaultValue: false);
+        public bool IsPassword
+        {
+            get
+            {
+                return (bool)GetValue(IsPasswordProperty);
+            }
+            set
+            {
+                SetValue(IsPasswordProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(nameof(Keyboard), returnType: typeof(Keyboard), declaringType: typeof(Keyboard), defaultValue: Keyboard.Default);
+
+        public Xamarin.Forms.Keyboard Keyboard
+        {
+            get
+            {
+                return (Keyboard)GetValue(KeyboardProperty);
+            }
+            set
+            {
+                SetValue(KeyboardProperty, value);
+            }
+        }
+        public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create(nameof(MaxLength), returnType: typeof(int), declaringType: typeof(int), defaultValue: 100);
+
+        public int MaxLength
+        {
+            get
+            {
+                return (int)GetValue(MaxLengthProperty);
+            }
+            set
+            {
+                SetValue(MaxLengthProperty, value);
+            }
+        }
         public CustomEntryCtrl()
         {
             InitializeComponent();

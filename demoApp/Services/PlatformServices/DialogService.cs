@@ -34,12 +34,13 @@ namespace demoApp.Services.PlatformServices
 
         public async Task ShowCustomPopUp(string text)
         {
-            Vibration.Vibrate();
-            var popUp = new CustomPopUp(text);
-            await PopupNavigation.Instance.PushAsync(popUp);
-            Thread.Sleep(500);
-            await PopupNavigation.Instance.PopAsync();
-
+            if (PopupNavigation.Instance.PopupStack.Count < 1)
+            {
+                var popUp = new CustomPopUp(text);
+                await PopupNavigation.Instance.PushAsync(popUp);
+                Thread.Sleep(1000);
+                await PopupNavigation.Instance.PopAsync();
+            }
         }
     }
 }

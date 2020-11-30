@@ -84,8 +84,8 @@ namespace demoApp.ViewModels
             }
         }
 
-        private int age;
-        public int Age
+        private string age;
+        public string Age
         {
             get
             {
@@ -124,32 +124,34 @@ namespace demoApp.ViewModels
                 {
                     IsProgressBarVisible = true;
                     var req = CreateNewUserRequest();
-                    //if (IsNetworkAvailable())
-                    //{
-
-                    //    GenericResponse response = await newUserService.SubmitUserDetails(AppConstants.EndPoints.AddUser, req);
-
-                    //    if (response != null && response.Success == true)
-                    //    {
-                    //        await ShowDialog.ShowMessage("Info saved successfully!", "New User");
-                    //    }
-                    //    else
-                    //    {
-                    //        await ShowDialog.ShowMessage("Please try again!", "New User");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    bool response = await newUserService.AddDetailsToDB(req);
-                    if (response)
+                    if (IsNetworkAvailable())
                     {
-                        await ShowDialog.ShowMessage("Info saved locally. Please visit Saved User to sync once internet connectivity comes!", "New User");
+
+                        GenericResponse response = await newUserService.SubmitUserDetails(AppConstants.EndPoints.AddUser, req);
+
+                        if (response != null && response.Success == true)
+                        {
+                            await ShowDialog.ShowMessage("Info saved successfully!", "New User");
+                            await NavigationService.GoBack();
+                        }
+                        else
+                        {
+                            await ShowDialog.ShowMessage("Please try again!", "New User");
+                        }
                     }
                     else
                     {
-                        await ShowDialog.ShowMessage("Please try again!", "New User");
+                        bool response = await newUserService.AddDetailsToDB(req);
+                        if (response)
+                        {
+                            await ShowDialog.ShowMessage("Info saved locally. Please visit Saved User to sync once internet connectivity comes!", "New User");
+                            await NavigationService.GoBack();
+                        }
+                        else
+                        {
+                            await ShowDialog.ShowMessage("Please try again!", "New User");
+                        }
                     }
-                    // }
                 }
                 else
                 {
@@ -178,7 +180,12 @@ namespace demoApp.ViewModels
             req.PhoneNumber = PhoneNumber;
             req.Email = Email;
             req.Address = Address;
-            req.Age = Age;
+
+            int age = 0;
+            if (int.TryParse(Age, out age))
+            {
+                req.Age = age;
+            }
 
             return req;
         }

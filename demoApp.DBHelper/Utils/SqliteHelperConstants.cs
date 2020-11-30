@@ -21,6 +21,11 @@ namespace demoApp.DBHelper.Utils
         public const string UserEntityName = "User";
 
         /// <summary>
+        /// Assembly Name Constant to resolve Entities
+        /// </summary>
+        public const string StudentEntityName = "Student";
+
+        /// <summary>
         /// Flags to configure Tables in Sqlite
         /// </summary>
         public const SQLite.SQLiteOpenFlags Flags =

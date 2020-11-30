@@ -11,7 +11,10 @@
 
             <controls:BorderlessEntry
                          Placeholder="{Binding Source={x:Reference self}, Path=Placeholder}"
-                        Text="{Binding Source={x:Reference self}, Path=Text}" />
+                        Text="{Binding Source={x:Reference self}, Path=Text}"
+                 MaxLength="{Binding Source={x:Reference self}, Path=MaxLength}"
+                        Keyboard="{Binding Source={x:Reference self}, Path=Keyboard}"
+                IsPassword="{Binding Source={x:Reference self}, Path=IsPassword}"/>
 
             <BoxView Style="{x:StaticResource Seperator}"/>
 

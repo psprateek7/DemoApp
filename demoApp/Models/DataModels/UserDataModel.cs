@@ -30,7 +30,7 @@ namespace demoApp.Models.DataModels
             }
             set
             {
-                isSelected = IsSelected;
+                isSelected = value;
                 NotifyPropertyChanged(nameof(IsSelected));
             }
         }
